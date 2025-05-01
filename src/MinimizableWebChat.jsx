@@ -93,7 +93,7 @@ const MinimizableWebChat = () => {
 
   const handleFetchToken = useCallback(async () => {
     if (!token) {
-      const res = await fetch(`${import.meta.env.REACT_APP_BACKEND_URL}/config/66cc240c2b0664128bf63752`, {
+      const res = await fetch(`/config/66cc240c2b0664128bf63752`, {
         method: "GET",
       });
       let { token } = await res.json();
