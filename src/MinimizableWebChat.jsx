@@ -3,7 +3,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { createStore } from 'botframework-webchat';
 
 import WebChat from './WebChat';
-//add a line.
+//add a line..
 import './fabric-icons-inline.css';
 import './MinimizableWebChat.css';
 
