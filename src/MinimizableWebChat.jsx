@@ -93,7 +93,8 @@ const MinimizableWebChat = () => {
 
   const handleFetchToken = useCallback(async () => {
     if (!token) {
-      const res = await fetch(`${import.meta.env.VITE_APP_BACKEND_URL}/config/66cc240c2b0664128bf63752`, {
+      let backendUrl = import.meta.env.VITE_APP_BACKEND_URL;
+      const res = await fetch(`${backendUrl}/config/66cc240c2b0664128bf63752`, {
         method: "GET",
       });
       let { token } = await res.json();
