@@ -93,7 +93,7 @@ const MinimizableWebChat = () => {
     if (!token) {
       let backendUrl = import.meta.env.VITE_APP_BACKEND_URL;
       console.log(backendUrl);
-      const res = await fetch(`${backendUrl}/config/66cc240c2b0664128bf63752`, {
+      const res = await fetch(`https://dd-backend-dev-esewdqf8e3axaphe.centralus-01.azurewebsites.net/config/66cc240c2b0664128bf63752`, {
         method: "GET",
       });
       let { token } = await res.json();
