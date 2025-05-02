@@ -6,7 +6,6 @@ import WebChat from "./WebChat";
 //add a line..
 import "./fabric-icons-inline.css";
 import "./MinimizableWebChat.css";
-import crypto from 'crypto';
 
 const MinimizableWebChat = () => {
   const store = useMemo(
