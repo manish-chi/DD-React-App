@@ -1,25 +1,25 @@
-import classNames from 'classnames';
-import React, { useCallback, useMemo, useState } from 'react';
-import { createStore } from 'botframework-webchat';
+import classNames from "classnames";
+import React, { useCallback, useMemo, useState } from "react";
+import { createStore } from "botframework-webchat";
 
-import WebChat from './WebChat';
+import WebChat from "./WebChat";
 //add a line..
-import './fabric-icons-inline.css';
-import './MinimizableWebChat.css';
+import "./fabric-icons-inline.css";
+import "./MinimizableWebChat.css";
 
 const MinimizableWebChat = () => {
   const store = useMemo(
     () =>
-      createStore({}, ({ dispatch }) => next => action => {
-        if (action.type === 'DIRECT_LINE/CONNECT_FULFILLED') {
+      createStore({}, ({ dispatch }) => (next) => (action) => {
+        if (action.type === "DIRECT_LINE/CONNECT_FULFILLED") {
           dispatch({
             type: "WEB_CHAT/SEND_EVENT",
             payload: {
-              name: "webchat/join"
+              name: "webchat/join",
             },
           });
-        } else if (action.type === 'DIRECT_LINE/INCOMING_ACTIVITY') {
-          if (action.payload.activity.from.role === 'bot') {
+        } else if (action.type === "DIRECT_LINE/INCOMING_ACTIVITY") {
+          if (action.payload.activity.from.role === "bot") {
             setNewMessage(true);
           }
         }
@@ -59,13 +59,13 @@ const MinimizableWebChat = () => {
     userAvatarInitials: "WC",
     suggestedActionLayout: "carousel",
     bubbleNubOffset: "bottom",
-    bubbleFromUserBorderStyle: 'solid',
-    bubbleFromUserBorderRadius:9,
-    bubbleBorderRadius:9,
-    bubbleBorderWidth:2,
-    bubbleFromUserNubOffset:"bottom",
-    bubbleFromUserNubSize:5,
-    bubbleNubSize:5,
+    bubbleFromUserBorderStyle: "solid",
+    bubbleFromUserBorderRadius: 9,
+    bubbleBorderRadius: 9,
+    bubbleBorderWidth: 2,
+    bubbleFromUserNubOffset: "bottom",
+    bubbleFromUserNubSize: 5,
+    bubbleNubSize: 5,
     primaryFont: "Poppins, sans-serif",
     backgroundColor: "Transparent",
     bubbleBorderColor: "rgb(230, 108, 51)",
@@ -80,12 +80,10 @@ const MinimizableWebChat = () => {
     cardPushButtonBackgroundColor: "rgb(230, 108, 51)",
   };
 
- 
-
   const [loaded, setLoaded] = useState(false);
   const [minimized, setMinimized] = useState(true);
   const [newMessage, setNewMessage] = useState(false);
-  const [side, setSide] = useState('right');
+  const [side, setSide] = useState("right");
   const [token, setToken] = useState();
 
   // To learn about reconnecting to a conversation, see the following documentation:
@@ -94,11 +92,13 @@ const MinimizableWebChat = () => {
   const handleFetchToken = useCallback(async () => {
     if (!token) {
       let backendUrl = import.meta.env.VITE_APP_BACKEND_URL;
+      console.log(backendUrl);
       const res = await fetch(`${backendUrl}/config/66cc240c2b0664128bf63752`, {
         method: "GET",
       });
       let { token } = await res.json();
-      setToken(token);}
+      setToken(token);
+    }
   }, [setToken, token]);
 
   const handleMaximizeButtonClick = useCallback(async () => {
@@ -113,7 +113,7 @@ const MinimizableWebChat = () => {
   }, [setMinimized, setNewMessage]);
 
   const handleSwitchButtonClick = useCallback(() => {
-    setSide(side === 'left' ? 'right' : 'left');
+    setSide(side === "left" ? "right" : "left");
   }, [setSide, side]);
 
   // TODO: [P2] Currently, we cannot unmount Web Chat from DOM when it is minimized.
@@ -125,12 +125,25 @@ const MinimizableWebChat = () => {
     <div className="minimizable-web-chat">
       {minimized && (
         <button className="maximize" onClick={handleMaximizeButtonClick}>
-          <span className={token ? 'ms-Icon ms-Icon--MessageFill' : 'ms-Icon ms-Icon--Message'} />
-          {newMessage && <span className="ms-Icon ms-Icon--CircleShapeSolid red-dot" />}
+          <span
+            className={
+              token
+                ? "ms-Icon ms-Icon--MessageFill"
+                : "ms-Icon ms-Icon--Message"
+            }
+          />
+          {newMessage && (
+            <span className="ms-Icon ms-Icon--CircleShapeSolid red-dot" />
+          )}
         </button>
       )}
       {loaded && (
-        <div className={classNames(side === 'left' ? 'chat-box left' : 'chat-box right', minimized ? 'hide' : '')}>
+        <div
+          className={classNames(
+            side === "left" ? "chat-box left" : "chat-box right",
+            minimized ? "hide" : ""
+          )}
+        >
           <header>
             <div className="filler" />
             <button className="switch" onClick={handleSwitchButtonClick}>
